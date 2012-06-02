@@ -11,6 +11,24 @@ In order to use this you need to:
 
 Wether you `git clone`, `ln -s` or `cp` them doesn't matter.
 
+### Vagrant plugins
+Install the vagrant-dns plugin.
+
+`gem install vagrant-dns`
+
+### Ruby …
+
+… meh. I recommend to use rvm with Ruby 1.9.2. The repository has an rvmrc.
+
+`rvm use 1.9.2`
+`rvm gemset create vagrant`
+`rvm use 1.9.2@vagrant`
+
+
+#### TODO
+
+* Fix DNS
+
 ### Using puppet-admin
 
 Clone puppet-admin into your clone of puppet-env-ng.
@@ -27,7 +45,20 @@ Link the modules from puppet-admin.
 
 **NOTE**: You may need to `gitsubmodule update --init` in puppet-admin.
 
+
 ## Running the machines
+
+### Mocking nodes
+
+You can export `VAGRANT_NODES` with a comma separated list of node names.
+
+`$ export VAGRANT_NODES=foo,bar`
+
+`$ vagrant up master`
+
+`$ vagrant up foo`
+
+You can also do `vagrant status` to check that things are okay.
 
 ### Start the master
 ```
@@ -35,10 +66,5 @@ $ vagrant up master
 ```
 
 ### Start a node
-TODO
 
 ## Hack
-
-## TODO
-
-* Figure out how to create _dynamic_ node(name)s in Vagrant.
