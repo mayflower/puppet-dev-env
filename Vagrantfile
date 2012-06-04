@@ -4,18 +4,12 @@
 mocked_nodes = ENV['VAGRANT_NODES'] ? ENV['VAGRANT_NODES'].split(',') : ['node']
 
 Vagrant::Config.run do |config|
-  config.vm.box = "base-precise"
+  config.vm.box     = "base-precise"
   config.vm.box_url = "http://mirror.dmz.muc.mayflower.de/vagrant/base-precise.box"
+
   # config.vm.boot_mode = :gui
-  # config.vm.network :hostonly, "192.168.33.10"
-  # config.vm.network :bridged
 
-  # config.vm.forward_port 8140, 8140
-  # config.vm.share_folder "v-data", "/vagrant_data", "../data"
-  
   config.dns.tld = 'dev'
-  VagrantDNS::Config.logger = Logger.new('debug_dns.log')
-
   config.vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 
   config.vm.define :master do |master|
@@ -31,7 +25,7 @@ Vagrant::Config.run do |config|
       'templates',
       'files'
     ]
-    
+
     shared_folders.each do |folder|
       master.vm.share_folder "puppet-#{folder}", "/puppet_#{folder}", "./#{folder}"
     end
