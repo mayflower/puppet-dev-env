@@ -1,13 +1,15 @@
-# puppet-env-ng
+# puppet-dev-env
 
 A vagrant environment to ease the pain of developing manifests & modules.
 
 ## Setup
 
-In order to use this you need to:
+In order to use this you need the following directories (and appropriate sources ;):
 
-  * Put your manifests in ./manifests
-  * Put your modules in ./modules
+* manifests
+* modules
+* templates
+* files
 
 Wether you `git clone`, `ln -s` or `cp` them doesn't matter.
 
@@ -15,6 +17,8 @@ Wether you `git clone`, `ln -s` or `cp` them doesn't matter.
 Install the vagrant-dns plugin.
 
 `gem install vagrant-dns`
+
+**NOTE:** _OS X-only_ at the moment. :(
 
 ### Ruby …
 
@@ -27,7 +31,7 @@ Install the vagrant-dns plugin.
 
 #### TODO
 
-* Fix DNS
+* Fix DNS on non-OS X platforms.
 
 ### Using puppet-admin
 
@@ -35,13 +39,15 @@ Clone puppet-admin into your clone of puppet-env-ng.
 
 `$ git clone git@git.mayflower.de:puppet-admin.git`
 
-Link the manifests from puppet-admin.
+Link the directories from puppet-admin.
 
 `$ ln -s puppet-admin/manifests`
 
-Link the modules from puppet-admin.
-
 `$ ln -s puppet-admin/modules`
+
+`$ ln -s puppet-admin/templates`
+
+`$ ln -s puppet-admin/files`
 
 **NOTE**: You may need to `gitsubmodule update --init` in puppet-admin.
 
@@ -60,11 +66,12 @@ You can export `VAGRANT_NODES` with a comma separated list of node names.
 
 You can also do `vagrant status` to check that things are okay.
 
+**FIXME:** Currently the ordering of `VAGRANT_NODES` is **essential to assign IP addresses**, don't change it if you have running VMs!
+
 ### Start the master
+
+Do this before you start any other VMs. ;)
+
 ```
 $ vagrant up master
 ```
-
-### Start a node
-
-## Hack
