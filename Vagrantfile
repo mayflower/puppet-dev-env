@@ -40,7 +40,7 @@ Vagrant::Config.run do |config|
       puppet.options        = ['--verbose']
       puppet.manifests_path = "manifests"
       puppet.module_path    = "modules"
-      puppet.manifest_file  = "nodes/node_vagrant_master.pp"
+      puppet.manifest_file  = "vagrant/master.pp"
     end
   end
 
