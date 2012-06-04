@@ -23,7 +23,7 @@ Vagrant::Config.run do |config|
     master.vm.forward_port  8140, 8140
     master.vm.forward_port  22, 20022
 
-    master.vm.network :hostonly, '192.168.172.2'
+    master.vm.network :hostonly, :dhcp, :ip => '192.168.172.1'
 
     shared_folders = [
       'manifests',
@@ -45,18 +45,16 @@ Vagrant::Config.run do |config|
   end
 
   ##  Hackety, hack.
-  mocked_nodes.each_with_index do |host,index|
-    index += 5
-
+  mocked_nodes.each_with_index do |host|
     config.vm.define host do |config|
-      config.vm.host_name     = "#{host.to_s}.dev"  # FIXME: this shouldn't include the tld
+      config.vm.host_name     = "#{host.to_s}.dev"
 
       config.vm.provision :puppet_server do |puppet|
         puppet.options        = ['--verbose']
         puppet.puppet_server  = 'puppet'
       end
 
-      config.vm.network :hostonly, "192.168.172.#{index.to_s}"  # FIXME: hackhackhack
+      config.vm.network :hostonly, :dhcp, :ip => '192.168.172.1'
     end
   end
 end
